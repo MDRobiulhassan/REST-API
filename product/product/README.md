@@ -9,7 +9,6 @@ A simple Spring Boot REST API for managing products with MySQL database integrat
 - **MySQL Integration** - Uses MySQL database via XAMPP
 - **Input Validation** - Request body validation with meaningful error messages
 - **Exception Handling** - Global exception handling with proper HTTP status codes
-- **Simple Architecture** - Clean and minimal code structure
 
 ## Technology Stack
 
@@ -20,7 +19,7 @@ A simple Spring Boot REST API for managing products with MySQL database integrat
 - **Maven**
 - **Lombok**
 
-## 🗄Database Schema
+## Database Schema
 
 ### Product Table
 | Column | Type | Description |
@@ -40,7 +39,13 @@ A simple Spring Boot REST API for managing products with MySQL database integrat
 - Maven 3.6+
 - XAMPP (for MySQL)
 
-### 2. Database Setup
+### 2. Clone the repository
+```bash
+git clone https://github.com/MDRobiulhassan/REST-API
+cd product
+```
+
+### 3. Database Setup
 1. **Start XAMPP** and ensure MySQL service is running
 2. **Access phpMyAdmin** at `http://localhost/phpmyadmin`
 3. **Create database:**
@@ -48,14 +53,31 @@ A simple Spring Boot REST API for managing products with MySQL database integrat
    CREATE DATABASE product_db;
    ```
 
-### 3. Application Configuration
+### 4. Application Configuration
 The application is configured to connect to MySQL at:
 - **Host:** localhost:3306
 - **Database:** product_db
 - **Username:** root
 - **Password:** (empty)
 
-### 4. Run the Application
+### application.properties
+```properties
+spring.application.name=product
+server.port=8080
+
+# MySQL Database Configuration (XAMPP)
+spring.datasource.url=jdbc:mysql://localhost:3306/product_db
+spring.datasource.username=root
+spring.datasource.password=
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+# JPA Configuration
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
+```
+
+### 5. Run the Application
 ```bash
 # Navigate to project directory
 cd product
@@ -167,7 +189,7 @@ The API will be available at: `http://localhost:8080`
 ]
 ```
 
-## 🧪 Postman Testing Guide
+## Postman Testing 
 
 ### Import Collection
 Create a new Postman collection called "Product Management API" and add the following requests:
@@ -244,12 +266,9 @@ Create a new Postman collection called "Product Management API" and add the foll
   - `quantity`: `5`
 - **Expected Response:** `200 OK` with `true` or `false`
 
-### 🔧 Postman Environment Variables
-Create environment variables for easier testing:
-- `baseUrl`: `http://localhost:8080`
-- `productId`: `1` (update after creating products)
 
-### 📋 Test Scenarios
+
+### Test Scenarios
 
 #### Scenario 1: Complete CRUD Flow
 1. **Create** a new product
@@ -352,24 +371,6 @@ Invoke-RestMethod -Uri "http://localhost:8080/products/1/stock?quantity=5" -Meth
 ```
 
 
-## Configuration
-
-### application.properties
-```properties
-spring.application.name=product
-server.port=8080
-
-# MySQL Database Configuration (XAMPP)
-spring.datasource.url=jdbc:mysql://localhost:3306/product_db
-spring.datasource.username=root
-spring.datasource.password=
-spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
-
-# JPA Configuration
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=true
-spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
-```
 
 ## Validation Rules
 
