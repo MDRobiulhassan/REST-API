@@ -21,14 +21,12 @@ public class ProductController {
         this.productService = productService;
     }
 
-    // Create a new product
     @PostMapping
-    public ResponseEntity<Product> createProduct(@Valid @RequestBody Product product) {
+    public ResponseEntity<?> createProduct(@Valid @RequestBody Product product) {
         Product created = productService.createProduct(product);
         return ResponseEntity.status(201).body(created);
     }
 
-    // Get all products (simple list)
     @GetMapping
     public ResponseEntity<?> getAllProducts(
             @RequestParam(defaultValue = "false") boolean paginated,
@@ -52,37 +50,33 @@ public class ProductController {
         }
     }
 
-    // Get product by ID
+
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable Long id) {
+    public ResponseEntity<?> getProductById(@PathVariable Long id) {
         Product product = productService.getProductById(id);
         return ResponseEntity.ok(product);
     }
 
-    // Update product (with stock availability check)
     @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @Valid @RequestBody Product product) {
+    public ResponseEntity<?> updateProduct(@PathVariable Long id, @Valid @RequestBody Product product) {
         Product updated = productService.updateProduct(id, product);
         return ResponseEntity.ok(updated);
     }
 
-    // Delete product
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
+    public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
         return ResponseEntity.noContent().build();
     }
 
-    // Search products by name
     @GetMapping("/search")
-    public ResponseEntity<List<Product>> searchProducts(@RequestParam String name) {
+    public ResponseEntity<?> searchProducts(@RequestParam String name) {
         List<Product> products = productService.searchProductsByName(name);
         return ResponseEntity.ok(products);
     }
 
-    // Check stock availability
     @GetMapping("/{id}/stock")
-    public ResponseEntity<Boolean> checkStockAvailability(
+    public ResponseEntity<?> checkStockAvailability(
             @PathVariable Long id,
             @RequestParam Integer quantity) {
         boolean available = productService.checkStockAvailability(id, quantity);
